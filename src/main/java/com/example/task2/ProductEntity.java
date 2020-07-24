@@ -7,24 +7,25 @@ import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class ProductEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NotBlank(message = "Product Name cannot be null")
+    //@NotBlank(message = "Product Name cannot be null")
     private String name;
-    @NotNull(message = "Cost Cannot be null")
+    //@NotNull(message = "Cost Cannot be null")
     private double cost;
-    @NotNull(message = "Stock presence should be provided")
     private boolean stock;
+
+    // @NotNull(message = "Stock presence should be provided")
 
 
 }

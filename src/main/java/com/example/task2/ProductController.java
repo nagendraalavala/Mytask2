@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 
-@Controller
+@RestController
 @RequestMapping(value = "/api/v1", headers = "Accept=application/json")
 public class ProductController
 {
-    @Autowired
+
     private ProductService service;
 
     @RequestMapping(
@@ -21,7 +21,7 @@ public class ProductController
             value = "/addProduct",
             produces = "application/json")
     @ResponseBody
-    public ResponseEntity<ProductEntity> addProduct(@Valid ProductEntity productEntity)
+    public ResponseEntity<ProductEntity> addProduct(@RequestBody ProductEntity productEntity)
     {
         return new ResponseEntity<>(service.postProduct(productEntity), HttpStatus.CREATED);
     }
