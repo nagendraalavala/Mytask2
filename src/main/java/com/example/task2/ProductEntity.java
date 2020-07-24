@@ -19,13 +19,9 @@ public class ProductEntity
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    //@NotBlank(message = "Product Name cannot be null")
+
     private String name;
-    //@NotNull(message = "Cost Cannot be null")
     private double cost;
     private boolean stock;
 
-    // @NotNull(message = "Stock presence should be provided")
-
-
-}
+ }

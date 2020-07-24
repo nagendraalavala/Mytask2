@@ -35,7 +35,7 @@ public class ProductControllerTest
 
     private ProductEntity mockEntity;
 
-    
+
 
     @Before
     public void setup(){
@@ -50,12 +50,14 @@ public class ProductControllerTest
 
         when(productService.postProduct(mockEntity)).thenReturn(mockEntity);
 
-        String url = "/api/v1/addProduct";
+        String url = "/addProduct";
 
         mvc.perform( MockMvcRequestBuilders
                 .post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isCreated())
+
                 ;
                 assertEquals(productService.postProduct(mockEntity), mockEntity);
     }

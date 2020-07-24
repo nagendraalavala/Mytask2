@@ -10,17 +10,13 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping(value = "/api/v1", headers = "Accept=application/json")
 public class ProductController
 {
 
+    @Autowired
     private ProductService service;
 
-    @RequestMapping(
-            method = RequestMethod.POST,
-            value = "/addProduct",
-            produces = "application/json")
-    @ResponseBody
+    @PostMapping("/addProduct")
     public ResponseEntity<ProductEntity> addProduct(@RequestBody ProductEntity productEntity)
     {
         return new ResponseEntity<>(service.postProduct(productEntity), HttpStatus.CREATED);
