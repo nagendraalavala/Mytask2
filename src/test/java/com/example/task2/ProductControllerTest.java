@@ -56,7 +56,7 @@ public class ProductControllerTest
                 .post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON_VALUE))
-                
+
 
                 ;
                 assertEquals(productService.postProduct(mockEntity), mockEntity);
