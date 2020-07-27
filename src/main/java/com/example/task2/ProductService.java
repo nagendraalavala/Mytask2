@@ -40,8 +40,10 @@ public class ProductService
         ProductEntity oldProduct = product.get();
         if (product.isPresent())
         {
+            oldProduct.setId(newProduct.getId());
             oldProduct.setName(newProduct.getName());
             oldProduct.setCost(newProduct.getCost());
+
 
             return oldProduct;
         }
