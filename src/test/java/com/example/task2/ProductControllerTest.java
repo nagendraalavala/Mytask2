@@ -4,8 +4,6 @@ package com.example.task2;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.assertEquals;
@@ -54,7 +52,7 @@ public class ProductControllerTest
 
         when(productService.postProduct(mockEntity)).thenReturn(mockEntity);
 
-        String url = "/addProduct";
+        String url = "/api/v1/addProduct";
 
         mvc.perform( MockMvcRequestBuilders
                 .post(url)
@@ -73,7 +71,7 @@ public class ProductControllerTest
 
        when(productService.getAllProducts()).thenReturn(products);
 
-       String url = "/";
+       String url = "/api/v1/";
 
        mvc.perform(MockMvcRequestBuilders.get(url)
                .contentType(MediaType.APPLICATION_JSON)
@@ -93,7 +91,7 @@ public class ProductControllerTest
 
         when(productService.getProductById((long) 1)).thenReturn(productEntity);
 
-        String url= "/{id}";
+        String url= "/api/v1/{id}";
 
         mvc.perform(MockMvcRequestBuilders.get(url,1)
         .contentType(MediaType.APPLICATION_JSON)
@@ -114,7 +112,7 @@ public class ProductControllerTest
 
         when(productService.updateProduct((long) 1,productEntity)).thenReturn(newProduct);
 
-        String url = "/update/{id}";
+        String url = "/api/v1/update/{id}";
 
         mvc.perform(MockMvcRequestBuilders.put(url)
         .contentType(MediaType.APPLICATION_JSON)
@@ -131,7 +129,7 @@ public class ProductControllerTest
     public void deleteEmployeeAPI() throws Exception
     {
 
-        mvc.perform( MockMvcRequestBuilders.delete("/delete/{id}", 1) );
+        mvc.perform( MockMvcRequestBuilders.delete("/api/v1/delete/{id}", 1) );
     }
 
 }
