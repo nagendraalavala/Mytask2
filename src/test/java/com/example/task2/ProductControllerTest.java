@@ -7,16 +7,12 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
-
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
-
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -44,11 +40,6 @@ public class ProductControllerTest
     private ProductService productService;
 
     private ProductEntity mockEntity;
-
-    @Captor
-    private ArgumentCaptor<String> stringArgumentCaptor;
-
-
 
     @Before
     public void setup(){
@@ -133,8 +124,6 @@ public class ProductControllerTest
         ;
 
         assertEquals(productService.updateProduct((long) 1,newProduct),newProduct);
-        ;
-
 
     }
 
