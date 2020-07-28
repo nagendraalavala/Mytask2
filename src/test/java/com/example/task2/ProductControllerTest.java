@@ -11,11 +11,16 @@ import static org.mockito.Mockito.*;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ProductControllerTest
 
 {
-    @Autowired
     private MockMvc mvc;
 
     @InjectMocks
@@ -48,7 +52,7 @@ public class ProductControllerTest
     @Test
     public void createProductAPI_success() throws Exception
     {
-        mockEntity = new ProductEntity((long) 1,"Phone", 215.3, true);
+        mockEntity = new ProductEntity((long) 1,"Phone", 215.3, "Active");
 
         when(productService.postProduct(mockEntity)).thenReturn(mockEntity);
 
@@ -66,8 +70,8 @@ public class ProductControllerTest
     public void get_all_products_test_success() throws Exception
    {
        List<ProductEntity> products = Arrays.asList(
-               new ProductEntity((long) 1,"Phone",250.6,true),
-               new ProductEntity((long) 2,"Laptop",300.9,false));
+               new ProductEntity((long) 1,"Phone",250.6,"Active"),
+               new ProductEntity((long) 2,"Laptop",300.9,"Active"));
 
        when(productService.getAllProducts()).thenReturn(products);
 
@@ -86,10 +90,10 @@ public class ProductControllerTest
     @Test
     public void get_product_by_id_test_success() throws Exception
     {
-        Optional<ProductEntity> productEntity = Optional.of(new ProductEntity((long) 1, "Phone", 363.9, false));
+        Optional<ProductEntity> productEntity = Optional.of(new ProductEntity((long) 1, "Phone", 363.9, "Active"));
         ProductEntity product = productEntity.get();
 
-        when(productService.getProductById((long) 1)).thenReturn(productEntity);
+        when(productService.getProductById(product.getId())).thenReturn(productEntity);
 
         String url= "/api/v1/{id}";
 
@@ -98,8 +102,8 @@ public class ProductControllerTest
         .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk());
 
-        verify(productService, times(1)).getProductById((long) 1);
-        assertEquals(productService.getProductById((long) 1),productEntity);
+        verify(productService, times(1)).getProductById(product.getId());
+        assertEquals(productService.getProductById(product.getId()),productEntity);
 
 
     }
@@ -107,8 +111,8 @@ public class ProductControllerTest
     @Test
     public void update_product_by_id_Success() throws Exception
     {
-        ProductEntity productEntity = new ProductEntity((long) 1,"Phone",300.0,true);
-        ProductEntity newProduct = new ProductEntity((long) 1 ,"Laptop",323.3,true);
+        ProductEntity productEntity = new ProductEntity((long) 1,"Phone",300.0,"Active");
+        ProductEntity newProduct = new ProductEntity((long) 1 ,"Laptop",323.3,"Active");
 
         when(productService.updateProduct((long) 1,productEntity)).thenReturn(newProduct);
 
@@ -118,7 +122,7 @@ public class ProductControllerTest
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
-        .andExpect(MockMvcResultMatchers.jsonPath(productEntity.getName()).value(newProduct.getName()))
+
         ;
 
         assertEquals(productService.updateProduct((long) 1,newProduct),newProduct);
@@ -131,5 +135,7 @@ public class ProductControllerTest
 
         mvc.perform( MockMvcRequestBuilders.delete("/api/v1/delete/{id}", 1) );
     }
+
+
 
 }
