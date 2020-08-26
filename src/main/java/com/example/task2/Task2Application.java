@@ -1,8 +1,6 @@
 package com.example.task2;
 
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -16,10 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-@Slf4j
 public class Task2Application {
-
-	private static final Logger logger = LoggerFactory.getLogger(Task2Application.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(Task2Application.class, args);
@@ -34,9 +29,5 @@ public class Task2Application {
 				.build();
 	}
 
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
-	}
 
 }
